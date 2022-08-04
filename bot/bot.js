@@ -21,7 +21,7 @@ bot.command("start", (ctx) => {
   sendStartMessage(ctx);
 });
 
-function sendStartMessage(ctx) {
+function sendStartMessage( ctx ) {
   const startMessage =
     "Bienvenido, este bot fue hecho para la prueba de Hey Now";
 
