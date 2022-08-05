@@ -1,5 +1,20 @@
 const express = require("express");
 const app = express();
+//conexión a base de datos
+const mongoose = require('mongoose');
+
+const Frase = require('../models/frase')
+
+const user = 'dmg';
+const password = '2y14wtWkRf3VXZfJ';
+const dbname = 'HeyNow';
+const uri = `mongodb+srv://${user}:${password}@${dbname}.umqxrmr.mongodb.net/?retryWrites=true&w=majority`;
+
+async function main() {
+  
+  main().catch(err => console.log(err));
+  await mongoose.connect(uri);
+}
 
 const PORT = 3000;
 

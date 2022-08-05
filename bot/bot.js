@@ -67,6 +67,18 @@ bot.action("quote", (ctx) => {
   });
 });
 
+async (req,res) => {
+  try{
+
+    const arrayFrases = await Frase.find()
+    console.log(arrayFrases)
+
+  } catch (error){
+    console.log(error)
+  }
+}
+
+
 async function fetchQuote(type) {
   const res = await axios.get("http://localhost:3000/quotes/" + type);
   return res.data.quote;
