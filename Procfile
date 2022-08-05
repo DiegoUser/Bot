@@ -1,1 +1,1 @@
-process type: worker
+worker: npm start
