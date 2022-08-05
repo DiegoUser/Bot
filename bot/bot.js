@@ -27,7 +27,7 @@ function sendStartMessage( ctx ) {
   bot.telegram.sendMessage(ctx.chat.id, startMessage, {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "Quiero una frase", callback_data: "quote" }],
+        //[{ text: "Quiero una frase", callback_data: "quote" }],
         [
           {
             text: "Mi website(actualmente en construcción)",
@@ -46,7 +46,7 @@ bot.action("credits", (ctx) => {
   ctx.reply("Creado por Diego");
 });
 
-bot.action("quote", (ctx) => {
+/*bot.action("quote", (ctx) => {
   //Para evitar la animación de espera
   ctx.answerCbQuery();
   const menuMessage = "¿Que tipo de frase quieres?";
@@ -64,8 +64,8 @@ bot.action("quote", (ctx) => {
       one_time_keyboard: true,
     },
   });
-});
-
+});*/
+/*
 async (req,res) => {
   try{
 
@@ -75,10 +75,10 @@ async (req,res) => {
   } catch (error){
     console.log(error)
   }
-}
+}*/
 
 
-async function fetchQuote(type) {
+/*async function fetchQuote(type) {
   const res = await axios.get("http://localhost:3000/quotes/" + type);
   return res.data.quote;
 }
@@ -102,5 +102,5 @@ bot.hears("Salir", (ctx) => {
       remove_keyboard: true,
     },
   });
-});
+});*/
 bot.launch();
