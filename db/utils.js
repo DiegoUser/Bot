@@ -4,7 +4,7 @@ const PORT = 3000;
 
 const user = 'dmg';
 const password = '2y14wtWkRf3VXZfJ';
-const dbname = 'HeyNow';
+const dbname = 'api';
 const uri = `mongodb+srv://${user}:${password}@${dbname}.umqxrmr.mongodb.net/?retryWrites=true&w=majority`;
 
 const db='';
