@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
+const frases = require("../db/frases");
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 /*//Para responder mensaje simple
@@ -20,14 +21,14 @@ bot.command("start", (ctx) => {
   sendStartMessage(ctx);
 });
 
-function sendStartMessage( ctx ) {
+sendStartMessage = ( ctx ) => {
   const startMessage =
     "Bienvenido, este bot fue hecho para la prueba de Hey Now";
 
   bot.telegram.sendMessage(ctx.chat.id, startMessage, {
     reply_markup: {
       inline_keyboard: [
-        //[{ text: "Quiero una frase", callback_data: "quote" }],
+        [{ text: "Quiero una frase", callback_data: "quote" }],
         [
           {
             text: "Mi website(actualmente en construcción)",
@@ -46,7 +47,7 @@ bot.action("credits", (ctx) => {
   ctx.reply("Creado por Diego");
 });
 
-/*bot.action("quote", (ctx) => {
+bot.action("quote", (ctx) => {
   //Para evitar la animación de espera
   ctx.answerCbQuery();
   const menuMessage = "¿Que tipo de frase quieres?";
@@ -64,36 +65,20 @@ bot.action("credits", (ctx) => {
       one_time_keyboard: true,
     },
   });
-});*/
-/*
-async (req,res) => {
-  try{
-
-    const arrayFrases = await Frase.find()
-    console.log(arrayFrases)
-
-  } catch (error){
-    console.log(error)
-  }
-}*/
-
-
-/*async function fetchQuote(type) {
-  const res = await axios.get("http://localhost:3000/quotes/" + type);
-  return res.data.quote;
-}
-
-bot.hears("Frases de amistad", async (ctx) => {
-  const quote = await fetchQuote("amistad");
-  ctx.reply(quote);
 });
+
+
 bot.hears("Chistes cortos", async (ctx) => {
-  const quote = await fetchQuote("graciosas");
-  ctx.reply(quote);
+  const frase = await frases.getFraseAleatoria('graciosa');
+  ctx.reply(frase.value);
+});
+bot.hears("Frases de amistad", async (ctx) => {
+  const frase = await frases.getFraseAleatoria('amistad');
+  ctx.reply(frase.value);
 });
 bot.hears("Frases para informaticos", async (ctx) => {
-  const quote = await fetchQuote("informaticos");
-  ctx.reply(quote);
+  const frase = await frases.getFraseAleatoria('informaticos');
+  ctx.reply(frase.value);
 });
 
 bot.hears("Salir", (ctx) => {
@@ -102,5 +87,5 @@ bot.hears("Salir", (ctx) => {
       remove_keyboard: true,
     },
   });
-});*/
+});
 bot.launch();
