@@ -1,3 +1,8 @@
+
+
+//IMPORTANTE usaba esta api para probar las frases sin necesidad del bot,
+//la decidí dejar en el código para mostrar como la iba testeando.
+
 const express = require('express');
 const frases = require('../db/frases');
 
