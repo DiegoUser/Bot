@@ -1,31 +1,21 @@
 require("dotenv").config();
 const { Telegraf } = require("telegraf");
 const frases = require("../db/frases");
+const fetch = (...args) =>
+  import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const api = require('../ubicacion/ubicacion')
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-/*//Para responder mensaje simple
-bot.command('hola', (ctx) => {
-    ctx.reply('hola '+ ctx.from.first_name);
-})
-//Para manejar lo que envía el usuario
-bot.on('text', ctx =>{
-    console.log(ctx.message.text);
-    ctx.reply('usted ha enviado '+ctx.message.text)
-})
-//Para escuchar un mensaje específico
-bot.hears('hola bot', ctx =>{
-    ctx.reply('He escuchado tu mensaje');
-})*/
 
 bot.command("start", (ctx) => {
   sendStartMessage(ctx);
 });
 
 //Mensaje de bienvenida
-sendStartMessage = ( ctx ) => {
+sendStartMessage = (ctx) => {
   const startMessage =
     "Bienvenido, este bot fue hecho para la prueba de Hey Now";
-//Menu
+  //Menu
   bot.telegram.sendMessage(ctx.chat.id, startMessage, {
     reply_markup: {
       inline_keyboard: [
@@ -36,11 +26,12 @@ sendStartMessage = ( ctx ) => {
             url: "https://diego-mendez.com/",
           },
         ],
+        [{ text: "Ubicacion", callback_data: "ubicacion" }],
         [{ text: "Creditos", callback_data: "credits" }],
       ],
     },
   });
-}
+};
 
 bot.action("credits", (ctx) => {
   //Para evitar la animación de espera
@@ -68,17 +59,23 @@ bot.action("quote", (ctx) => {
   });
 });
 
+bot.action("ubicacion", async (ctx) => {
+  ctx.answerCbQuery();
+  const ubicacion = await api.getUbicacion();
+  ctx.reply(ubicacion.region + " " + ubicacion.country + " " + ubicacion.flag.emoji);
+});
+
 //Frases
 bot.hears("Frases de amistad", async (ctx) => {
-  const frase = await frases.getFraseAleatoria('amistad');
+  const frase = await frases.getFraseAleatoria("amistad");
   ctx.reply(frase.value);
 });
 bot.hears("Chistes cortos", async (ctx) => {
-  const frase = await frases.getFraseAleatoria('graciosa');
+  const frase = await frases.getFraseAleatoria("graciosa");
   ctx.reply(frase.value);
 });
 bot.hears("Frases para informaticos", async (ctx) => {
-  const frase = await frases.getFraseAleatoria('informaticos');
+  const frase = await frases.getFraseAleatoria("informaticos");
   ctx.reply(frase.value);
 });
 //Salir Menu
