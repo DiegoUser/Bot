@@ -21,10 +21,11 @@ bot.command("start", (ctx) => {
   sendStartMessage(ctx);
 });
 
+//Mensaje de bienvenida
 sendStartMessage = ( ctx ) => {
   const startMessage =
     "Bienvenido, este bot fue hecho para la prueba de Hey Now";
-
+//Menu
   bot.telegram.sendMessage(ctx.chat.id, startMessage, {
     reply_markup: {
       inline_keyboard: [
@@ -67,20 +68,20 @@ bot.action("quote", (ctx) => {
   });
 });
 
-
-bot.hears("Chistes cortos", async (ctx) => {
-  const frase = await frases.getFraseAleatoria('graciosa');
-  ctx.reply(frase.value);
-});
+//Frases
 bot.hears("Frases de amistad", async (ctx) => {
   const frase = await frases.getFraseAleatoria('amistad');
+  ctx.reply(frase.value);
+});
+bot.hears("Chistes cortos", async (ctx) => {
+  const frase = await frases.getFraseAleatoria('graciosa');
   ctx.reply(frase.value);
 });
 bot.hears("Frases para informaticos", async (ctx) => {
   const frase = await frases.getFraseAleatoria('informaticos');
   ctx.reply(frase.value);
 });
-
+//Salir Menu
 bot.hears("Salir", (ctx) => {
   bot.telegram.sendMessage(ctx.chat.id, "Hasta luego", {
     reply_markup: {

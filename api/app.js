@@ -7,22 +7,22 @@ const PORT = 3000;
 main: async () => {
   main().catch(err => console.log(err));
 };
-
+//Api para testear
 app.get('/frase/graciosa', async (req, res) => {
   const frase = await frases.getFraseAleatoria("graciosa");
   res.send(frase.value);
 });
-app.get('/frase/equia', async (req, res) => {
-  const frase = await frases.getFraseAleatoria("equia");
+app.get('/frase/amistad', async (req, res) => {
+  const frase = await frases.getFraseAleatoria("amistad");
   res.send(frase.value);
 });
-app.get('/frase/equis', async (req, res) => {
-  const frase = await frases.getFraseAleatoria("equis");
+app.get('/frase/informaticos', async (req, res) => {
+  const frase = await frases.getFraseAleatoria("informaticos");
   res.send(frase.value);
 });
 
 app.get('/', (req, res) => {
-  res.send('Hola Mundo!');
+  res.send('Testeando');
 });
 
 app.listen(PORT, () => {
